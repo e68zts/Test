@@ -1,0 +1,562 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.zhaots</groupId>
+  <artifactId>zts-lu-005-sprSecurity-logInOut</artifactId>
+  <packaging>war</packaging>
+  <version>0.0.2</version>
+  <name>zts-lu-004-2db Maven Webapp1</name>
+  <url>http://maven.apache.org</url>
+  <properties>
+	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<jdk.version>1.7</jdk.version>
+		<servlet.version>3.0.1</servlet.version>
+		<jstl.version>1.2</jstl.version>
+		<junit.version>4.11</junit.version>
+		<log4j.version>1.2.17</log4j.version>
+		<slf4j.version>1.7.2</slf4j.version>
+		
+		<commons-lang3.version>3.1</commons-lang3.version>
+		<commons-io.version>2.4</commons-io.version>
+		<commons-collections.version>3.2.1</commons-collections.version>
+		<commons-fileupload.version>1.2.2</commons-fileupload.version>
+		
+		
+		<!-- <spring.version>3.1.0.RELEASE</spring.version>4.1.5.RELEASE  -->
+		<spring.version>4.3.2.RELEASE</spring.version><!-- 4.1.6.RELEASE -->
+		<spring-cache.version>3.2.0</spring-cache.version>
+		<spring-security.verssion>4.1.2.RELEASE</spring-security.verssion><!--4.0.3.RELEASE  4.1.2.RELEASE-->
+		<spring-security-oauth.verssion>2.0.7.RELEASE</spring-security-oauth.verssion>
+		<spring-data-mongodb.version>1.7.0.RELEASE</spring-data-mongodb.version>
+		<spring-session-data-redis.version>1.0.1.RELEASE</spring-session-data-redis.version>
+		
+		<commons-fileupload.version>1.2.2</commons-fileupload.version>
+		
+		<mybatis.version>3.2.8</mybatis.version>
+		<mybatis.mapper.version>3.3.7</mybatis.mapper.version>
+		<mybatis.pagehelper.version>4.0.0</mybatis.pagehelper.version>
+		<jsqlparser.version>0.9.3</jsqlparser.version>
+		<mybatis-spring.version>1.1.1</mybatis-spring.version>
+		
+		<mysql.version>5.1.22</mysql.version>
+		<druid.versison>0.2.26</druid.versison>
+		
+		<!-- mybatis.version 3.3.0及以上版本会对activiti 5.19及以下版本的引擎查询有影响，会产生异常，谨慎 -->
+		<activiti.version>5.19.0</activiti.version>
+		
+		
+		
+		<!--    4.1.2.Final-->
+		<hibernate.versison>3.3.2.GA</hibernate.versison>
+		<jta.versison>1.1</jta.versison>
+		<commons-dbcp.versison>1.4</commons-dbcp.versison>
+		<ehcache-core.versison>2.4.3</ehcache-core.versison>
+		<hibernate-annotations.versison>3.4.0.GA</hibernate-annotations.versison>
+		<hibernate-entitymanager.versison>3.4.0.GA</hibernate-entitymanager.versison>
+		
+		
+		<gson.version>2.2.4</gson.version>
+		<kaptcha.version>2.3.2</kaptcha.version>
+<!-- 		<poi.version>3.8</poi.version> -->
+		
+		<javamail.version>1.4.5</javamail.version>
+		
+<!-- 		<jackson.version>1.9.12</jackson.version> -->
+		<com-fasterxml-jackson-core.version>2.2.3</com-fasterxml-jackson-core.version><!--2.1.0   20160812 addzts-->
+		<quartz-all.version>2.1.1</quartz-all.version><!--1.8.5  -->
+		
+		
+		
+		<maven-compiler-plugin.version>2.3.2</maven-compiler-plugin.version>
+		<maven-deploy-plugin.version>2.7</maven-deploy-plugin.version>
+		<maven-site-plugin.version>3.0</maven-site-plugin.version>
+		<maven-resources-plugin.version>2.5</maven-resources-plugin.version>
+		<maven-source-plugin.version>2.4</maven-source-plugin.version>
+		<tomcat-maven-plugin.version>1.1</tomcat-maven-plugin.version>
+		<maven-war-plugin.version>2.2</maven-war-plugin.version>
+		<maven-surefire-plugin.version>2.12.4</maven-surefire-plugin.version>
+  </properties>
+  
+  <!--
+  Spring Framework Bom
+Spring Security builds against Spring Framework 4.3.1.RELEASE, but should work with 4.0.x. The problem that many users will have is that Spring Security’s transitive dependencies resolve Spring Framework 4.3.1.RELEASE which can cause strange classpath problems.
+One (tedious) way to circumvent this issue would be to include all the Spring Framework modules in a <dependencyManagement> section of your pom. An alternative approach is to include the spring-framework-bom within your <dependencyManagement> section of your pom.xml as shown below:
+
+  ref:http://docs.spring.io/spring-security/site/docs/4.1.2.RELEASE/reference/htmlsingle/#maven
+  
+    -->
+<dependencyManagement>
+	<dependencies>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-framework-bom</artifactId>
+		<version>4.3.1.RELEASE</version>
+		<type>pom</type>
+		<scope>import</scope>
+	</dependency>
+	</dependencies>
+</dependencyManagement>
+
+
+  <dependencies>
+  
+  
+  <!-- activiti start -->
+		<dependency>
+			<groupId>org.activiti</groupId>
+			<artifactId>activiti-engine</artifactId>
+			<version>${activiti.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.activiti</groupId>
+			<artifactId>activiti-spring</artifactId>
+			<version>${activiti.version}</version>
+		</dependency>
+	<!-- activiti end -->
+	
+	
+	  <dependency>
+		<groupId>org.quartz-scheduler</groupId>
+		<artifactId>quartz</artifactId>
+		<version>2.1.1</version>
+	  </dependency>
+	
+    <!-- start 001-->
+	
+	
+	
+                
+    <!-- https://mvnrepository.com/artifact/com.oracle/ojdbc14 -->
+		<dependency>
+		    <groupId>com.oracle</groupId>
+		    <artifactId>ojdbc14</artifactId>
+		    <version>10.2.0.2.0</version>
+		</dependency>
+
+
+                
+
+
+    	<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>${servlet.version}</version>
+		</dependency>
+		
+		<!--jstl -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>${jstl.version}</version>
+		</dependency>
+		
+		<!--Junit 4 -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		
+		<!-- log4j -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		<!-- slf4j -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+
+		<!-- slf4j-log4j bind -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>${slf4j.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate -->
+		<!-- <dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>${hibernate.versison}</version>
+		</dependency> -->
+
+		<!-- https://mvnrepository.com/artifact/javax.transaction/jta -->
+		<!-- <dependency>
+			<groupId>javax.transaction</groupId>
+			<artifactId>jta</artifactId>
+			<version>${jta.versison}</version>
+		</dependency> -->
+		 <!-- https://mvnrepository.com/artifact/commons-dbcp/commons-dbcp -->
+		<dependency>
+		    <groupId>commons-dbcp</groupId>
+		    <artifactId>commons-dbcp</artifactId>
+		    <version>${commons-dbcp.versison}</version>
+		</dependency>
+		   <!-- https://mvnrepository.com/artifact/net.sf.ehcache/ehcache-core -->
+		<dependency>
+		    <groupId>net.sf.ehcache</groupId>
+		    <artifactId>ehcache-core</artifactId>
+		    <version>${ehcache-core.versison}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>${hibernate-entitymanager.versison}</version>
+		</dependency>
+	
+		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-annotations -->
+<!-- 		<dependency> -->
+<!-- 		    <groupId>org.hibernate</groupId> -->
+<!-- 		    <artifactId>hibernate-annotations</artifactId> -->
+<!-- 		    <version>${hibernate-annotations.versison}</version> -->
+<!-- 		</dependency> -->
+	
+	
+	
+   
+   
+   
+		
+		<!-- common-logging -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>${commons-lang3.version}</version>
+		</dependency>
+		 <dependency>
+   			<groupId>commons-collections</groupId>
+     		 <artifactId>commons-collections</artifactId>
+      		<version>${commons-collections.version}</version>
+  		</dependency>
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>${commons-fileupload.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>${commons-io.version}</version>
+		</dependency>
+    <!-- end 001-->
+
+	<!-- db begin -->
+	<dependency>
+		<groupId>mysql</groupId>
+		<artifactId>mysql-connector-java</artifactId>
+		<version>${mysql.version}</version>
+		<scope>runtime</scope>
+	</dependency>
+	<dependency>
+		<groupId>com.alibaba</groupId>
+		<artifactId>druid</artifactId>
+		<version>${druid.versison}</version>
+	</dependency>
+	<!-- db end -->
+	<!-- mybatis begin -->
+	<dependency>
+		<groupId>org.mybatis</groupId>
+		<artifactId>mybatis</artifactId>
+		<version>${mybatis.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.mybatis</groupId>
+		<artifactId>mybatis-spring</artifactId>
+		<version>${mybatis-spring.version}</version>
+	</dependency>
+	<dependency>
+			<groupId>tk.mybatis</groupId>
+			<artifactId>mapper</artifactId>
+			<version>${mybatis.mapper.version}</version>
+		</dependency>
+	<dependency>
+		<groupId>com.github.pagehelper</groupId>
+		<artifactId>pagehelper</artifactId>
+		<version>${mybatis.pagehelper.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>com.github.jsqlparser</groupId>
+		<artifactId>jsqlparser</artifactId>
+		<version>${jsqlparser.version}</version>
+	</dependency>
+	<!-- mybatis end -->
+    
+    
+    
+    <!-- spring-begin -->
+    <dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId>
+			<version>${spring.version}</version>
+
+
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>${spring.version}</version>
+
+
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
+			<scope>runtime</scope>
+
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${spring.version}</version>
+
+
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${spring.version}</version>
+
+
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-expression</artifactId>
+			<version>${spring.version}</version>
+
+
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-instrument</artifactId>
+			<version>${spring.version}</version>
+
+
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${spring.version}</version>
+
+
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-instrument-tomcat</artifactId>
+			<version>${spring.version}</version>
+
+
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jms</artifactId>
+			<version>${spring.version}</version>
+
+
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>${spring.version}</version>
+
+
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-oxm</artifactId>
+			<version>${spring.version}</version>
+
+
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.version}</version>
+
+
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>${spring.version}</version>
+
+
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${spring.version}</version>
+
+
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc-portlet</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<!--spring end  -->
+		<!-- spring security start-->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${spring-security.verssion}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${spring-security.verssion}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security.oauth</groupId>
+			<artifactId>spring-security-oauth2</artifactId>
+			<version>${spring-security-oauth.verssion}</version>
+		</dependency>
+		<!-- spring security end-->
+		
+    	<!-- <dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>${commons-fileupload.version}</version>
+		</dependency> -->
+    
+   		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>${com-fasterxml-jackson-core.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${com-fasterxml-jackson-core.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>${com-fasterxml-jackson-core.version}</version>
+		</dependency>
+    	<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>${gson.version}</version>
+		</dependency>
+		<!-- email 20160812addzts-->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>${javamail.version}</version>
+		</dependency>
+    
+<!--     	<dependency> -->
+<!-- 			<groupId>com.google.code</groupId> -->
+<!-- 			<artifactId>kaptcha</artifactId> -->
+<!-- 			<version>${kaptcha.version}</version> -->
+<!-- 		</dependency> -->
+  </dependencies>
+  
+  <build>
+    <finalName>zts-lu-004-2db</finalName>
+    <plugins>
+
+			<plugin>
+				<!-- 编译插件 -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven-compiler-plugin.version}</version>
+				<configuration>
+					<encoding>UTF-8</encoding>
+					<source>${jdk.version}</source>
+					<target>${jdk.version}</target>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<version>${maven-deploy-plugin.version}</version>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<version>${maven-site-plugin.version}</version>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>${maven-resources-plugin.version}</version>
+				<configuration>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>${maven-source-plugin.version}</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>${maven-war-plugin.version}</version>
+				<configuration>
+					<warSourceExcludes>src/test/java/**,src/test/resources/**</warSourceExcludes>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<!-- 运行mvn test时执行测试的插件 -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${maven-surefire-plugin.version}</version>
+				<configuration>
+					<argLine>-Dfile.encoding=UTF-8</argLine>
+					<excludes>
+						<!-- 不包含 -->
+						<exclude>**/ControllerTest.java</exclude>
+						<exclude>**/ServicesTest.java</exclude>
+					</excludes>
+					<!-- 忽略单元测试失败 -->
+					<!-- 命令：mvn package -Dmaven.test.failure.ignore=true <testFailureIgnore>true</testFailureIgnore> -->
+					<!-- 跳过单元测试 -->
+					<!-- 命令：mvn -package -Dmaven.test.skip=true <skip>true</skip> -->
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+
+
+		</plugins>
+  </build>
+</project>
